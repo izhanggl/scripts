@@ -1,0 +1,15 @@
+@echo off   
+@Rem 用户名   
+set user=  ::你的vpn用户名   
+@Rem 密码   
+set pass=           :://你的vpn密码   
+@Rem 拨号文件名   
+set NIC_name=BJ-shenjipingtai        :://注意这个nic_name一定要和你创建的网络vpn连接的名字一样，否则无法连接成功   
+echo 正在VPN连接...   
+rasdial %NIC_name% %user% %pass%     :://rasdial为自动拔号命令   
+echo 已经连接.   
+for /f "tokens=1* delims=:" %%i in ('ipconfig /all^|find "10.10.11"') do set ip=%%j   :://过滤出ipconfig命令输出的信息包含10.10.11这个地址段的信息（这个ip段就是你连接vpn成功后vpn服务器分配的内网ip地址）   
+echo %ip%   
+route add 192.168.161.0 mask 255.255.255.0 %ip% METRIC 1 :://添加要走VPN的网段
+route delete 0.0.0.0 mask 0.0.0.0 %ip% METRIC 1    :://就是删除缺省指向vpn内网的路由   
+
