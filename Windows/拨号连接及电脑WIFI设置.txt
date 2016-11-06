@@ -1,0 +1,14 @@
+命令行下进行拨号格式为 rasdial 网络连接的名字 用户名 密码
+rasdial DFHZ dfhz174311 311118
+
+设置电脑WIFI
+netsh wlan show drivers 来查看 支持的承载网络 是否支持
+
+
+netsh wlan set hostednetwork mode=allow ssid=^_^ key=1234.com
+
+启动承载网络
+netsh wlan start hostednetwork
+
+右击 本地能上网的网络连接 属性-> 共享->勾选 允许其他用户通过此计算机的Internet 连接来连接 -> 在 家庭网络连接下面选择 通过
+netsh wlan set hostednetwork mode=allow ssid=^_^ key=1234.com 而创建的网络 即可
